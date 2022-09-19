@@ -53,8 +53,31 @@ internal fun createSpawnPointsLua(cell: String, rel: String, name: String) {
             "end")
         spawnPointFile.close()
 
+        createSpawnRegionsLua(name)
+
     } catch(ex:Exception) {
         print(ex.message)
     }
 
+}
+
+internal fun createSpawnRegionsLua(name: String){
+
+    // remove spaces
+    val fileName: String = name
+
+    // create lua file
+    try {
+
+        var spawnRegionFile = FileWriter("world_spawnregions.lua")
+        spawnRegionFile.write("function SpawnRegions()\n" +
+                "    return {\n" +
+                "        { name = \"$name\", serverfile = \"$fileName\" }\n" +
+                "    }\n" +
+                "end")
+        spawnRegionFile.close()
+
+    } catch(ex:Exception) {
+        print(ex.message)
+    }
 }
